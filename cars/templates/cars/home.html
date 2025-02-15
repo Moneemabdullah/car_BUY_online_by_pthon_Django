@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Welcome to Car Sales</h1>
+<img src="path_to_image.jpg" alt="Car Image">
+<h2>Car Listings</h2>
+<form method="get">
+    <select name="brand">
+        <option value="">All Brands</option>
+        {% for brand in brands %}
+        <option value="{{ brand.id }}">{{ brand.name }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">Filter</button>
+</form>
+<ul>
+    {% for car in cars %}
+    <li>
+        <img src="{{ car.image.url }}" alt="{{ car.title }}">
+        <h3>{{ car.title }}</h3>
+        <p>{{ car.price }}</p>
+        <a href="{% url 'car_detail' car.id %}">View Details</a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

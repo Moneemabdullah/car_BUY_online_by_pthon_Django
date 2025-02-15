@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Order History</h1>
+<ul>
+    {% for order in orders %}
+    <li>
+        <p>Car: {{ order.car.title }}</p>
+        <p>Date Ordered: {{ order.date_ordered }}</p>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

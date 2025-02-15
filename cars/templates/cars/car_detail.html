@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ car.title }}</h1>
+<img src="{{ car.image.url }}" alt="{{ car.title }}">
+<p>{{ car.description }}</p>
+<p>Price: {{ car.price }}</p>
+<p>Quantity: {{ car.quantity }}</p>
+<p>Brand: {{ car.brand.name }}</p>
+{% if user.is_authenticated %}
+<form method="post" action="{% url 'buy_car' car.id %}">
+    {% csrf_token %}
+    <button type="submit">Buy Now</button>
+</form>
+{% endif %}
+<h2>Comments</h2>
+<form method="post" action="{% url 'add_comment' car.id %}">
+    {% csrf_token %}
+    <input type="text" name="name" placeholder="Your Name">
+    <textarea name="comment" placeholder="Your Comment"></textarea>
+    <button type="submit">Add Comment</button>
+</form>
+<ul>
+    {% for comment in car.comment_set.all %}
+    <li>
+        <strong>{{ comment.name }}</strong>: {{ comment.comment }}
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
